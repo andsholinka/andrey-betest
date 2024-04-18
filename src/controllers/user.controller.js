@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Redis = require('ioredis');
 const db = require("../models");
+const ValidationHelper = require('../helpers/validationHelper');
 const User = db.user;
 require('dotenv').config();
 
@@ -15,6 +16,18 @@ redis.on("ready", () => {
 
 const createUser = async (req, res) => {
     try {
+        const {
+            error
+        } = ValidationHelper.createUser(req.body);
+
+        if (error) {
+            return res.status(400).json({
+                status: res.statusCode,
+                message: error.details[0].message,
+                data: null
+            });
+        }
+
         const user = await User.create(req.body);
         res.status(200).json({
             status: res.statusCode,
@@ -35,7 +48,9 @@ const createUser = async (req, res) => {
         const errorMessage = (errorMessages[errorCode] && errorMessages[errorCode][Object.keys(error.keyPattern)[0]]) || "Duplicate entry already exists";
 
         res.status(400).json({
-            message: errorMessage
+            status: res.statusCode,
+            message: errorMessage,
+            data: null
         });
     }
 };
@@ -212,7 +227,8 @@ const deleteUser = async (req, res) => {
 
         res.status(200).json({
             status: res.statusCode,
-            message: "User deleted successfully"
+            message: "User deleted successfully",
+            data: null
         });
     } catch (error) {
         res.status(500).json({
