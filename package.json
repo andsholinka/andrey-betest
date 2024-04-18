@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "jest --coverage=true --forceExit"
+
   },
   "author": "andrey",
   "license": "ISC",
@@ -19,6 +21,9 @@
     "mongoose": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "jest": "^29.7.0",
+    "jest-sonar": "^0.2.16",
+    "nodemon": "^3.1.0",
+    "supertest": "^6.3.4"
   }
 }
