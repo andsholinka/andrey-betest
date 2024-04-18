@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "Success",
             data: user
         })
@@ -36,7 +36,7 @@ const getUsers = async (req, res) => {
     try {
         const users = await User.find();
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "Success",
             data: users
         });
@@ -55,7 +55,7 @@ const getUserById = async (req, res) => {
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({
-                status: 404,
+                status: res.statusCode,
                 message: "User not found",
                 data: null
             });
@@ -64,14 +64,14 @@ const getUserById = async (req, res) => {
         const user = await User.findById(id);
         if (!user) {
             return res.status(404).json({
-                status: 404,
+                status: res.statusCode,
                 message: "User not found",
                 data: null
             });
         }
 
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "Success",
             data: user
         })
@@ -94,14 +94,14 @@ const getUserByAccountNumber = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                status: 404,
+                status: res.statusCode,
                 message: "User not found",
                 data: null
             });
         }
 
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "Success",
             data: user
         })
@@ -124,14 +124,14 @@ const getUserByIdentityNumber = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                status: 404,
+                status: res.statusCode,
                 message: "User not found",
                 data: null
             });
         }
 
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "Success",
             data: user
         })
@@ -154,7 +154,7 @@ const updateUser = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                status: 404,
+                status: res.statusCode,
                 message: "User not found",
                 data: null
             });
@@ -162,7 +162,7 @@ const updateUser = async (req, res) => {
 
         const updatedUser = await User.findById(id);
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "User updated successfully",
             data: updatedUser
         })
@@ -183,14 +183,14 @@ const deleteUser = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                status: 404,
+                status: res.statusCode,
                 message: "User not found",
                 data: null
             });
         }
 
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "User deleted successfully"
         });
     } catch (error) {
@@ -212,7 +212,7 @@ const generateToken = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                status: 404,
+                status: res.statusCode,
                 message: "User not found",
                 data: null
             });
@@ -225,7 +225,7 @@ const generateToken = async (req, res) => {
         });
 
         res.status(200).json({
-            status: 200,
+            status: res.statusCode,
             message: "Success",
             data: token
         })
