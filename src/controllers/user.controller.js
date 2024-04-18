@@ -1,9 +1,17 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-
+const Redis = require('ioredis');
 const db = require("../models");
 const User = db.user;
 require('dotenv').config();
+
+const redis = new Redis({
+    host: process.env.REDIS_HOST || '127.0.0.1',
+    port: 6379
+});
+redis.on("ready", () => {
+    console.log("Redis Connected...");
+})
 
 const createUser = async (req, res) => {
     try {
@@ -34,7 +42,20 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
+        const result = await redis.get("redis_andrey_betest")
+
+        if (result !== null) {
+            return res.status(200).json({
+                status: res.statusCode,
+                message: "User not found",
+                data: JSON.parse(result)
+            });
+        }
+
         const users = await User.find();
+
+        redis.set("redis_andrey_betest", JSON.stringify(users), 'EX', 120);
+
         res.status(200).json({
             status: res.statusCode,
             message: "Success",
