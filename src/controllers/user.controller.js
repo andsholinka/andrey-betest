@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
 const db = require("../models");
 const User = db.user;
+require('dotenv').config();
 
 const createUser = async (req, res) => {
     try {
@@ -197,6 +200,42 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const generateToken = async (req, res) => {
+    try {
+        const {
+            emailAddress
+        } = req.body;
+
+        const user = await User.findOne({
+            emailAddress
+        })
+
+        if (!user) {
+            return res.status(404).json({
+                status: 404,
+                message: "User not found",
+                data: null
+            });
+        }
+
+        const token = jwt.sign({
+            data: user
+        }, process.env.SECRET_KEY, {
+            expiresIn: '12h'
+        });
+
+        res.status(200).json({
+            status: 200,
+            message: "Success",
+            data: token
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     createUser,
     getUsers,
@@ -205,4 +244,5 @@ module.exports = {
     getUserByIdentityNumber,
     updateUser,
     deleteUser,
+    generateToken
 };
