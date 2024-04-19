@@ -2,15 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const db = require('./src/models');
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
 const corsOptions = {
     origin: '*',
 }
-
-dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({
