@@ -119,12 +119,12 @@ describe('User', () => {
             })
     });
 
-    test('it should return status response 401: [Create User] Unauthorized', async () => {
+    test('it should return status response 401: [Get All User] Unauthorized', async () => {
 
-        create.mockResolvedValue({});
+        find.mockResolvedValue({});
 
         await Request(app)
-            .post('/api/users')
+            .get('/api/users')
             .send(payload)
             .expect(401)
             .then(res => {
@@ -133,14 +133,14 @@ describe('User', () => {
             })
     });
 
-    test('it should return status response 401: [Create User] Invalid Token', async () => {
+    test('it should return status response 401: [Get All User] Invalid Token', async () => {
 
         const token = 'invalid-token';
 
-        create.mockResolvedValue({});
+        find.mockResolvedValue({});
 
         await Request(app)
-            .post('/api/users')
+            .get('/api/users')
             .set('Authorization', `Bearer ${token}`)
             .send(payload)
             .then(res => {
