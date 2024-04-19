@@ -1,13 +1,13 @@
 # andrey-betest
 
 ## Built with
-* [ExpressJs](https://expressjs.com/) - The web framework used.
+* [ExpressJS](https://expressjs.com/) - The web framework used.
 * [MongoDB](https://www.mongodb.com/) - is a source-available, cross-platform, document-oriented database program.
 * [Redis](https://redis.io/) - The in-memory data structure store.
 
 ## Installation
 
-1. Make sure you have **Node.js** (version 16 or newer), and **NPM** installed on your system, Redis and MongoDB (Optional).
+1. Make sure you have **Node.js** (version 16 or newer), **NPM**, Redis, and MongoDB installed on your system.
 2. Clone this repository to your local system:
    ```sh
    git clone https://github.com/andsholinka/andrey-betest
