@@ -7,11 +7,11 @@ const User = db.user;
 require('dotenv').config();
 
 const redis = new Redis({
-    host: process.env.REDIS_HOST || '127.0.0.1',
+    host: process.env.REDIS_HOST,
     port: 6379
 });
 redis.on("ready", () => {
-    console.log("Redis Connected...");
+    console.log("Redis Connected");
 })
 
 const createUser = async (req, res) => {
@@ -29,7 +29,7 @@ const createUser = async (req, res) => {
         }
 
         const user = await User.create(req.body);
-        res.status(200).json({
+        res.status(201).json({
             status: res.statusCode,
             message: "Success",
             data: user
@@ -45,7 +45,7 @@ const createUser = async (req, res) => {
         };
 
         const errorCode = error.code.toString();
-        const errorMessage = (errorMessages[errorCode] && errorMessages[errorCode][Object.keys(error.keyPattern)[0]]) || "Duplicate entry already exists";
+        const errorMessage = (errorMessages[errorCode] && errorMessages[errorCode][Object.keys(error.keyPattern)[0]]);
 
         res.status(400).json({
             status: res.statusCode,
@@ -62,7 +62,7 @@ const getUsers = async (req, res) => {
         if (result !== null) {
             return res.status(200).json({
                 status: res.statusCode,
-                message: "User not found",
+                message: "Success",
                 data: JSON.parse(result)
             });
         }

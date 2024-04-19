@@ -1,0 +1,16 @@
+{
+    "_id": {
+      "$oid": "6620bc94d53cd63baf33b13d"
+    },
+    "userName": "andrey",
+    "accountNumber": 126344,
+    "emailAddress": "andrey@gmail.com",
+    "identityNumber": 123,
+    "createdAt": {
+      "$date": "2024-04-18T06:24:20.484Z"
+    },
+    "updatedAt": {
+      "$date": "2024-04-18T06:24:20.484Z"
+    },
+    "__v": 0
+}

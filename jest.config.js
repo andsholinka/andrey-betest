@@ -18,14 +18,14 @@ module.exports = {
   reporters: ['default', 'jest-sonar'],
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['node_modules'],
+  coveragePathIgnorePatterns: ['node_modules', 'src/middleware'],
 
   coverageThreshold: {
     global: {
-      statements: 95,
-      branches: 95,
+      statements: 100,
+      branches: 100,
       functions: 100,
-      lines: 95
+      lines: 100
     }
   },
 

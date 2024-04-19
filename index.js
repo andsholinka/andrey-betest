@@ -20,11 +20,7 @@ app.use(cors(corsOptions));
 
 db.mongoose.connect(db.url)
     .then(() => {
-        console.log('MongoDB Connected...');
-    })
-    .catch(err => {
-        console.log('Error connecting to MongoDB...', err);
-        process.exit();
+        console.log('MongoDB Connected');
     })
 
 app.get('/sys/ping', (req, res) => {
@@ -36,3 +32,5 @@ require('./src/routes/user.routes')(app);
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
+
+module.exports = app
