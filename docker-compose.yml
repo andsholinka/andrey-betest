@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+
+  api:
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '8080:8080'
+    environment:
+      - PORT=8080
+      - SECRET_KEY=SECRET
+      - REDIS_HOST=betest-redis
+      - MONGODB_URI=mongodb://mongo_db:27017/db_andrey_betest
+    depends_on:
+      - mongo_db
+    command: node index.js
+
+  redis:
+    image: bitnami/redis:latest
+    container_name: betest-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    volumes:
+      - data_redis:/bitnami/redis/data
+
+volumes:
+  mongo_db: {}
+  data_redis:
